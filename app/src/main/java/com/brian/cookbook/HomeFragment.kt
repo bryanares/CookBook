@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.FragmentHomeBinding
 
-private lateinit var adapter : RecipeAdapter
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -30,10 +30,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
         var recipesList = mutableListOf<Recipe>()
-
+        val adapter = RecipeAdapter(recipesList)
         binding.rvRecipes.apply {
-            adapter = adapter
-            layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+            binding.rvRecipes.adapter = adapter
+            binding.rvRecipes.layoutManager =
+                LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
         }
 
     }
