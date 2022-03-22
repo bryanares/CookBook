@@ -1,5 +1,6 @@
 package com.brian.cookbook
 
+import com.brian.cookbook.models.RandomRecipeApiResponse
 import com.brian.cookbook.models.Recipe
 import retrofit2.Response
 import retrofit2.http.GET

@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.RecipeItemBinding
+import com.brian.cookbook.models.RandomRecipeApiResponse
 import com.brian.cookbook.models.Recipe
 
 private lateinit var binding: RecipeItemBinding
 
-class RecipeAdapter (): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter(recipesList: MutableList<Recipe>) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     inner class RecipeViewHolder(val binding: RecipeItemBinding ) : RecyclerView.ViewHolder(binding.root)
 
@@ -26,7 +27,7 @@ class RecipeAdapter (): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
         }
     }
     private val differ = AsyncListDiffer(this, diffCallBack)
-    private var recipes: List<Recipe>
+    var recipes: List<Recipe>
     get() = differ.currentList
     set(value) {differ.submitList(value)}
 
@@ -40,7 +41,7 @@ class RecipeAdapter (): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.binding.apply {
             val currentRecipe = recipes[position]
-            recipeImage.setImageURI(currentRecipe.image)
+            recipeImage.setImageResource(currentRecipe.image.toInt())
             recipeTitle.text = currentRecipe.title
             recipeIngredients.text = currentRecipe.extendedIngredients.toString()
             recipeInstructions.text = currentRecipe.instructions
@@ -53,7 +54,3 @@ class RecipeAdapter (): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
 }
 
-private fun ImageView.setImageURI(image: String) {
-
-
-}
