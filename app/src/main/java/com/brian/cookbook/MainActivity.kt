@@ -7,8 +7,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.brian.cookbook.databinding.ActivityMainBinding
-import com.brian.cookbook.databinding.FragmentHomeBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 private lateinit var binding: ActivityMainBinding
 

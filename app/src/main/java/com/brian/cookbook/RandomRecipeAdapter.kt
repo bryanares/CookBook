@@ -3,8 +3,10 @@ package com.brian.cookbook
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.RecipeItemBinding
+import com.brian.cookbook.models.Recipe
 
 private lateinit var binding: RecipeItemBinding
 
@@ -21,15 +23,20 @@ class RecipeAdapter (var recipes: List<Recipe>): RecyclerView.Adapter<RecipeAdap
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.binding.apply {
             val currentRecipe = recipes[position]
-            recipeImage.setImageResource(currentRecipe.recipeImage)
-            recipeTitle.text = currentRecipe.recipeTitle
-            recipeIngredients.text = currentRecipe.recipeIngredients
-            recipeInstructions.text = currentRecipe.recipeInstructions
+            recipeImage.setImageURI(currentRecipe.image)
+            recipeTitle.text = currentRecipe.title
+            recipeIngredients.text = currentRecipe.extendedIngredients.toString()
+            recipeInstructions.text = currentRecipe.instructions
         }
     }
 
     override fun getItemCount(): Int {
        return recipes.size
     }
+
+}
+
+private fun ImageView.setImageURI(image: String) {
+
 
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.FragmentHomeBinding
+import com.brian.cookbook.models.Recipe
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
