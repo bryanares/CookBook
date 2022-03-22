@@ -4,15 +4,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.RecipeItemBinding
 import com.brian.cookbook.models.Recipe
 
 private lateinit var binding: RecipeItemBinding
 
-class RecipeAdapter (var recipes: List<Recipe>): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter (): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     inner class RecipeViewHolder(val binding: RecipeItemBinding ) : RecyclerView.ViewHolder(binding.root)
+
+    private val diffCallBack = object : DiffUtil.ItemCallback<Recipe>(){
+        override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
+            return oldItem == newItem
+        }
+    }
+    private val differ = AsyncListDiffer(this, diffCallBack)
+    private var recipes: List<Recipe>
+    get() = differ.currentList
+    set(value) {differ.submitList(value)}
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
