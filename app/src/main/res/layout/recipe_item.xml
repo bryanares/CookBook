@@ -24,9 +24,11 @@
             <ImageView
                 android:id="@+id/recipe_image"
                 android:layout_width="match_parent"
-                android:layout_height="194dp"
+                android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/image1" />
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/image1"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
