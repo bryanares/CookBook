@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.RecipeItemBinding
 import com.brian.cookbook.models.RandomRecipeApiResponse
 import com.brian.cookbook.models.Recipe
+import com.squareup.picasso.Picasso
 
 private lateinit var binding: RecipeItemBinding
 
@@ -41,7 +42,7 @@ class RecipeAdapter(recipesList: MutableList<Recipe>) : RecyclerView.Adapter<Rec
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.binding.apply {
             val currentRecipe = recipes[position]
-            recipeImage.setImageResource(currentRecipe.image.toInt())
+            Picasso.get().load(currentRecipe.image).into(recipeImage)
             recipeTitle.text = currentRecipe.title
             recipeIngredients.text = currentRecipe.extendedIngredients.toString()
             recipeInstructions.text = currentRecipe.instructions

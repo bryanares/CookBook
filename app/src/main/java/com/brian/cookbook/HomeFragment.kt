@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.FragmentHomeBinding
+import com.brian.cookbook.models.RandomRecipeApiResponse
 import com.brian.cookbook.models.Recipe
 import retrofit2.HttpException
 import java.io.IOException
@@ -39,15 +40,11 @@ class HomeFragment : Fragment() {
 
     }
 
-//    private fun setupRecyclerView() = binding.rvRecipes.apply {
-//        recipeAdapter = RecipeAdapter()
-//
-//    }
-
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
-        var recipesList = mutableListOf<Recipe>()
-        val adapter = RecipeAdapter(recipesList)
+        recipeAdapter = RecipeAdapter(mutableListOf())
+
+        val adapter = recipeAdapter
         binding.rvRecipes.apply {
             binding.rvRecipes.adapter = adapter
             binding.rvRecipes.layoutManager =
@@ -69,7 +66,7 @@ class HomeFragment : Fragment() {
             }
 
             if (response.isSuccessful && response.body() != null) {
-                recipeAdapter.recipes = response.body()!!
+                recipeAdapter.recipes = response.body()!!.recipes
             }else{
                 Log.e(TAG, "Response not successful")
             }
