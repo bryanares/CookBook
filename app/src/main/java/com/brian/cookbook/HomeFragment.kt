@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(itemView, savedInstanceState)
         recipeAdapter = RecipeAdapter(mutableListOf())
-
         val adapter = recipeAdapter
         binding.rvRecipes.apply {
             binding.rvRecipes.adapter = adapter

@@ -44,6 +44,7 @@ class RecipeAdapter(recipesList: MutableList<Recipe>) : RecyclerView.Adapter<Rec
             val currentRecipe = recipes[position]
             Picasso.get().load(currentRecipe.image).into(recipeImage)
             recipeTitle.text = currentRecipe.title
+            recipeSummary.text = currentRecipe.summary
             recipeIngredients.text = currentRecipe.extendedIngredients.toString()
             recipeInstructions.text = currentRecipe.instructions
         }
