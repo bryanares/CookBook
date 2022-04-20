@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.brian.cookbook.HomeFragment"
         android:label="CookBook"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.brian.cookbook.SearchFragment"
@@ -20,4 +24,17 @@
         android:name="com.brian.cookbook.BookmarkFragment"
         android:label="Bookmarks"
         tools:layout="@layout/fragment_bookmark" />
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.brian.cookbook.RecipeDetailsFragment"
+        android:label="Recipe"
+        tools:layout="@layout/fragment_recipe_details" >
+        <argument android:name="image" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_recipeDetailsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

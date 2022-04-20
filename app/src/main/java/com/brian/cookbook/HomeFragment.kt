@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.FragmentHomeBinding
@@ -18,7 +19,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 const val TAG = "HomeFragment"
-private lateinit var recipeAdapter : RecipeAdapter
+private lateinit var recipeAdapter: RecipeAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -32,10 +33,14 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.rvRecipes.setOnClickListener {
+
+            val action = 
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_homeFragment_to_recipeDetailsFragment)
+        }
         return binding.root
-
-
-
     }
 
     override fun onViewCreated(itemView: View, savedInstanceState: Bundle?) {
@@ -64,7 +69,7 @@ class HomeFragment : Fragment() {
 
             if (response.isSuccessful && response.body() != null) {
                 recipeAdapter.recipes = response.body()!!.recipes
-            }else{
+            } else {
                 Log.e(TAG, "Response not successful")
             }
             binding.progressBar.isVisible = false
