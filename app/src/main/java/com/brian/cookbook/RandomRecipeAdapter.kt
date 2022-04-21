@@ -1,5 +1,6 @@
 package com.brian.cookbook
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,27 @@ import com.squareup.picasso.Picasso
 
 private lateinit var binding: RecipeItemBinding
 
-class RecipeAdapter(recipesList: MutableList<Recipe>) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter(recipesList: MutableList<Recipe>, private val listener: OnItemClickListener) :
+    RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
-    inner class RecipeViewHolder(val binding: RecipeItemBinding ) : RecyclerView.ViewHolder(binding.root)
+    inner class RecipeViewHolder(val binding: RecipeItemBinding) :
+        RecyclerView.ViewHolder(binding.root),
+        View.OnClickListener {
 
-    private val diffCallBack = object : DiffUtil.ItemCallback<Recipe>(){
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(position)
+            }
+        }
+    }
+
+
+    private val diffCallBack = object : DiffUtil.ItemCallback<Recipe>() {
         override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
             return oldItem.id == newItem.id
         }
@@ -29,8 +46,10 @@ class RecipeAdapter(recipesList: MutableList<Recipe>) : RecyclerView.Adapter<Rec
     }
     private val differ = AsyncListDiffer(this, diffCallBack)
     var recipes: List<Recipe>
-    get() = differ.currentList
-    set(value) {differ.submitList(value)}
+        get() = differ.currentList
+        set(value) {
+            differ.submitList(value)
+        }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -39,20 +58,32 @@ class RecipeAdapter(recipesList: MutableList<Recipe>) : RecyclerView.Adapter<Rec
         return RecipeViewHolder(binding)
     }
 
+
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.binding.apply {
             val currentRecipe = recipes[position]
             Picasso.get().load(currentRecipe.image).into(recipeImage)
             recipeTitle.text = currentRecipe.title
-            /*recipeSummary.text = currentRecipe.summary
-            recipeIngredients.text = currentRecipe.extendedIngredients.toString()*/
-            recipeInstructions.text = currentRecipe.instructions
+            recipeSummary.text = Html.fromHtml(currentRecipe.summary).toString()
+           /* recipeIngredients.text = currentRecipe.extendedIngredients.toString()*/
+            for (i in currentRecipe.extendedIngredients.indices) {
+                recipeIngredients.text = currentRecipe.extendedIngredients[i].aisle + "\n" +
+                        currentRecipe.extendedIngredients[i].consistency  + "\n" +
+                        currentRecipe.extendedIngredients[i].original
+            }
+            /*recipeInstructions.text = currentRecipe.instructions*/
+            recipeInstructions.text = Html.fromHtml(currentRecipe.instructions).toString()
         }
     }
 
     override fun getItemCount(): Int {
-       return recipes.size
+        return recipes.size
     }
 
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+
+    }
 }
 
