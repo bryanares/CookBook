@@ -1,5 +1,6 @@
 package com.brian.cookbook
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -79,11 +80,26 @@ class HomeFragment : Fragment(), RecipeAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(this.context, "Recipe $position clicked", Toast.LENGTH_SHORT).show()
+        /*Toast.makeText(this.context, "Recipe $position clicked", Toast.LENGTH_SHORT).show()
         val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailsFragment(String(), String())
         Navigation.findNavController(binding.root)
             .navigate(action)
         val clickedItem = position
+        recipeAdapter.notifyItemChanged(position)*/
+        val intent = Intent(this.context, RecipeDetailsFragment::class.java)
+        intent.putExtra("RecipeTitle", recipeAdapter.recipes[position].title)
+        intent.putExtra("RecipeSummary", "Summary: \n" + recipeAdapter.recipes[position].summary)
+        intent.putExtra("RecipeInstructions", "Instructions: \n" + recipeAdapter.recipes[position].instructions)
+        intent.putExtra("RecipeImage", recipeAdapter.recipes[position].image)
+
+        for (i in recipeAdapter.recipes[position].extendedIngredients.indices) {
+            intent.putExtra("RecipeIngredients", "Aisle: " + recipeAdapter.recipes[position].extendedIngredients[i].aisle +
+                    "\nConsistency: " + recipeAdapter.recipes[position].extendedIngredients[i].consistency +
+                    "\nOriginal: " + recipeAdapter.recipes[position].extendedIngredients[i].original)
+        }
+
+        startActivity(intent)
+
         recipeAdapter.notifyItemChanged(position)
     }
 

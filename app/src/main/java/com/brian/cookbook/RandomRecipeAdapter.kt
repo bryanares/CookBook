@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.cookbook.databinding.RecipeItemBinding
+import com.brian.cookbook.models.Ingredient
 import com.brian.cookbook.models.RandomRecipeApiResponse
 import com.brian.cookbook.models.Recipe
 import com.squareup.picasso.Picasso
@@ -62,16 +63,17 @@ class RecipeAdapter(recipesList: MutableList<Recipe>, private val listener: OnIt
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
         holder.binding.apply {
             val currentRecipe = recipes[position]
+
             Picasso.get().load(currentRecipe.image).into(recipeImage)
             recipeTitle.text = currentRecipe.title
             recipeSummary.text = Html.fromHtml(currentRecipe.summary).toString()
-           /* recipeIngredients.text = currentRecipe.extendedIngredients.toString()*/
             for (i in currentRecipe.extendedIngredients.indices) {
-                recipeIngredients.text = currentRecipe.extendedIngredients[i].aisle + "\n" +
+                recipeIngredients.text = currentRecipe.extendedIngredients[i].name +  "\n" +
                         currentRecipe.extendedIngredients[i].consistency  + "\n" +
-                        currentRecipe.extendedIngredients[i].original
+                        currentRecipe.extendedIngredients[i].original + "\n"
             }
             /*recipeInstructions.text = currentRecipe.instructions*/
+
             recipeInstructions.text = Html.fromHtml(currentRecipe.instructions).toString()
         }
     }
