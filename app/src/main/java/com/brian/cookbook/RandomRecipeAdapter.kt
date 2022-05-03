@@ -67,14 +67,13 @@ class RecipeAdapter(recipesList: MutableList<Recipe>, private val listener: OnIt
             Picasso.get().load(currentRecipe.image).into(recipeImage)
             recipeTitle.text = currentRecipe.title
             recipeSummary.text = Html.fromHtml(currentRecipe.summary).toString()
-            for (i in currentRecipe.extendedIngredients.indices) {
+            /*for (i in currentRecipe.extendedIngredients.indices) {
                 recipeIngredients.text = currentRecipe.extendedIngredients[i].name +  "\n" +
                         currentRecipe.extendedIngredients[i].consistency  + "\n" +
                         currentRecipe.extendedIngredients[i].original + "\n"
             }
-            /*recipeInstructions.text = currentRecipe.instructions*/
 
-            recipeInstructions.text = Html.fromHtml(currentRecipe.instructions).toString()
+            recipeInstructions.text = Html.fromHtml(currentRecipe.instructions).toString()*/
         }
     }
 
