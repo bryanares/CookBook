@@ -80,12 +80,7 @@ class HomeFragment : Fragment(), RecipeAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        /*Toast.makeText(this.context, "Recipe $position clicked", Toast.LENGTH_SHORT).show()
-        val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailsFragment(String(), String())
-        Navigation.findNavController(binding.root)
-            .navigate(action)
-        val clickedItem = position
-        recipeAdapter.notifyItemChanged(position)*/
+       
         val intent = Intent(this.context, RecipeDetailsFragment::class.java)
         intent.putExtra("RecipeTitle", recipeAdapter.recipes[position].title)
         intent.putExtra("RecipeSummary", "Summary: \n" + recipeAdapter.recipes[position].summary)
