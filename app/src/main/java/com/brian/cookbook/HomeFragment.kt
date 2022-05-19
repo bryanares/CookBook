@@ -80,7 +80,7 @@ class HomeFragment : Fragment(), RecipeAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-       
+
         val intent = Intent(this.context, RecipeDetailsFragment::class.java)
         intent.putExtra("RecipeTitle", recipeAdapter.recipes[position].title)
         intent.putExtra("RecipeSummary", "Summary: \n" + recipeAdapter.recipes[position].summary)
