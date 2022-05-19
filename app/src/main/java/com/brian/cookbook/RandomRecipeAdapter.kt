@@ -18,7 +18,6 @@ private lateinit var binding: RecipeItemBinding
 
 class RecipeAdapter(recipesList: MutableList<Recipe>, private val listener: OnItemClickListener) :
     RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
-
     inner class RecipeViewHolder(val binding: RecipeItemBinding) :
         RecyclerView.ViewHolder(binding.root),
         View.OnClickListener {
@@ -26,7 +25,6 @@ class RecipeAdapter(recipesList: MutableList<Recipe>, private val listener: OnIt
         init {
             itemView.setOnClickListener(this)
         }
-
         override fun onClick(p0: View?) {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
